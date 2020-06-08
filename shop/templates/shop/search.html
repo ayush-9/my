@@ -194,6 +194,11 @@ padding-right: 0;
 alert('{{msg}}');
 window.location.href = "/"
 {% endif %}
+
+ $("document").ready(function() {
+        $("#popcart").trigger('click');
+    });//to click at cart
+
 // Find out the cart items from localStorage
 if (localStorage.getItem('cart') == null) {
     var cart = {};
@@ -203,7 +208,7 @@ if (localStorage.getItem('cart') == null) {
 }
 
 // If the add to cart button is clicked, add/increment the item
-//$('.cart').click(function() {
+
     $('.divpr').on('click', 'button.cart', function(){
     var idstr = this.id.toString();
     if (cart[idstr] != undefined) {
@@ -226,6 +231,7 @@ updatePopover(cart);
 function updatePopover(cart) {
     console.log('We are inside updatePopover');
     var popStr = "";
+
     popStr = popStr + "<h5> Added Items in your iconic cart </h5><div class='mx-2 my-2'>";
     var i = 1;
     for (var item in cart) {
@@ -239,8 +245,11 @@ function updatePopover(cart) {
     popStr = popStr + "</div> <a href='#'><button class='btn btn-dark' id ='checkout' onclick='fg()'>Checkout</button></a> <button class='btn btn-danger' onclick='clearCart()' id ='clearCart'>Clear Cart</button>     "
     console.log(popStr);
     document.getElementById('popcart').setAttribute('data-content', popStr);
-
+if(Object.keys(cart).length===0){
+   $('#popcart').click();
+}else{
     $('#popcart').popover('show');
+}
 
 }
 function fg(){
@@ -248,6 +257,7 @@ function fg(){
 }
 
 function clearCart() {
+
     cart = JSON.parse(localStorage.getItem('cart'));
     for (var item in cart) {
         document.getElementById('div' + item).innerHTML = '<button id="' + item + '" class="btn btn-dark cart">Add To Cart</button>'
@@ -255,7 +265,7 @@ function clearCart() {
     localStorage.clear();
     cart = {};
     updateCart(cart);
-
+    updatePopover(cart);//done after
 
 }
 
@@ -285,7 +295,7 @@ $('.divpr').on("click", "button.minus", function() {
         document.getElementById('valpr' + a).innerHTML = cart['pr' + a][0];
     }
     updateCart(cart);
-
+    updatePopover(cart);
 });
 
 $('.divpr').on("click", "button.plus", function() {
@@ -343,7 +353,11 @@ function updatePopover(cart) {
     console.log(popStr);
     document.getElementById('popcart').setAttribute('data-content', popStr);
 
+  if(Object.keys(cart).length===0){
+   $('#popcart').click();
+}else{
     $('#popcart').popover('show');
+}//done after
 
 }
 
@@ -355,7 +369,7 @@ function clearCart() {
     localStorage.clear();
     cart = {};
     updateCart(cart);
-
+updatePopover(cart);
 
 }
 
@@ -385,7 +399,7 @@ $('.divpr').on("click", "button.minus", function() {
         document.getElementById('valpr' + a).innerHTML = cart['pr' + a][0];
     }
     updateCart(cart);
-
+     updatePopover(cart);//done for updating popover
 });
 
 $('.divpr').on("click", "button.plus", function() {
@@ -398,4 +412,5 @@ $('.divpr').on("click", "button.plus", function() {
 
 </script>
 {% endif %}
+
 {% endblock %}
