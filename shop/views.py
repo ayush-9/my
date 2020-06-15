@@ -134,7 +134,7 @@ def checkout(request):
                 'INDUSTRY_TYPE_ID': 'Retail',
                 'WEBSITE': 'WEBSTAGING',
                 'CHANNEL_ID': 'WEB',
-                'CALLBACK_URL':'https://securegw.paytm.in/order/status',
+                'CALLBACK_URL':'https://radiant-savannah-80462.herokuapp.com/shop/handlerequest/',
 
             }
             param_dict['CHECKSUMHASH'] = Checksum.generate_checksum(param_dict, MERCHANT_KEY)
