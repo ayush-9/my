@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from PayTm import Checksum
 # Create your views here.
 from django.http import HttpResponse
-MERCHANT_KEY = 'kbzk1DSbJiV_O3p5'      #Your-Merchant-Key-Here
+MERCHANT_KEY = 'rl86qXr@sPISpZ_3'      #Your-Merchant-Key-Here
 
 def index(request):
     type = Types.objects.all()
@@ -127,14 +127,14 @@ def checkout(request):
             # Request paytm to transfer the amount to your account after payment by user
             param_dict = {
 
-                'MID': 'WorldP64425807474247',    #Your-Merchant-Id-Here
+                'MID': 'PJXRQM05477968886496',    #Your-Merchant-Id-Here
                 'ORDER_ID': str(order.order_id),
                 'TXN_AMOUNT': str(amount),
                 'CUST_ID': email,
                 'INDUSTRY_TYPE_ID': 'Retail',
                 'WEBSITE': 'WEBSTAGING',
                 'CHANNEL_ID': 'WEB',
-                'CALLBACK_URL':'http://127.0.0.1:8000/shop/handlerequest/',
+                'CALLBACK_URL':'https://securegw.paytm.in/order/status',
 
             }
             param_dict['CHECKSUMHASH'] = Checksum.generate_checksum(param_dict, MERCHANT_KEY)
